@@ -1,0 +1,85 @@
+# --- System & OS ---
+.DS_Store
+Thumbs.db
+*.swp
+*.tmp
+*.temp
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# --- Programming Languages & Package Managers ---
+node_modules/
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+yarn-error.log*
+npm-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.tsbuildinfo
+next-env.d.ts
+
+# --- Build Outputs & Caching ---
+dist/
+build/
+out/
+.next/
+.turbo/
+.vercel
+.nyc_output
+coverage/
+report.[0-9]*.json
+
+# --- Environment & Secrets (CRITICAL) ---
+.env
+.env.*
+!.env.example
+*.pem
+*.tfvars
+*.tfvars.json
+.envrc
+
+# --- Database (Prisma / SQLite) ---
+*.db
+*.db-journal
+# Игнорируем только временные файлы, НО ОСТАВЛЯЕМ миграции
+!/apps/backend/prisma/migrations/
+# --- Infrastructure (Terraform & Virtualization) ---
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.tfstate.lock.info
+terraform.tflog
+# Образы виртуалок (libvirt/KVM)
+*.qcow2
+*.iso
+*.img
+
+# --- IDEs & Editors ---
+.idea/
+.project
+.classpath
+.settings/
+*.sublime-workspace
+*.launch
+*.njsproj
+*.sln
+*.ntvs*
+*.suo
+
+# VS Code - сохраняем только командные настройки
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# --- Logs ---
+logs/
+*.log

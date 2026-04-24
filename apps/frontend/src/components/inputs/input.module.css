@@ -1,0 +1,17 @@
+.input {
+    width: 100%;
+    padding: 14px;
+    border-radius: 30px;
+    border: 1px solid var(--color-main-12);
+    outline: none;
+    color: var(--color-main-80);
+    background-color: transparent;
+    font-size: 14px;
+    line-height: 1.43;
+    letter-spacing: -0.02em;
+    transition: border-color var(--transition);
+}
+.input_error {
+    border-color: var(--color-error);
+    color: var(--color-error);
+}

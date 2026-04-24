@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      # 1. Ожидание базы данных
+      initContainers:
+        - name: wait-for-db
+          image: busybox:1.28
+          command:
+            [
+              "sh",
+              "-c",
+              "until nc -z postgres-service 5432; do echo waiting for db; sleep 2; done;",
+            ]
+
+        # 2. Миграции Prisma (выполняются один раз перед стартом приложения)
+        - name: db-migrate
+          image: localhost:5000/red-planner-frontend:latest
+          imagePullPolicy: IfNotPresent
+          command: ["npx", "prisma", "migrate", "deploy"]
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: DATABASE_URL
+
+      containers:
+        - name: backend
+          image: localhost:5000/red-planner-frontend:latest
+          imagePullPolicy: IfNotPresent
+          # Используем APPLICATION_PORT из конфига, но контейнер должен его слушать
+          ports:
+            - containerPort: 4200
+
+          # Автоматически подтягиваем ВСЕ переменные из ConfigMap и Secret
+          # Это намного чище, чем прописывать каждую переменную вручную
+          envFrom:
+            - configMapRef:
+                name: app-config
+            - secretRef:
+                name: app-secrets
+
+          # Проверки работоспособности (Health Checks)
+          # livenessProbe:
+          #   httpGet:
+          #     path: /api/health
+          #     port: 4200
+          #   initialDelaySeconds: 15
+          #   periodSeconds: 20
+          # readinessProbe:
+          #   httpGet:
+          #     path: /api/health
+          #     port: 4200
+          #   initialDelaySeconds: 5
+          #   periodSeconds: 10
+
+          # Ограничение ресурсов (важно для стабильности ноды)
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+            requests:
+              cpu: "100m"
+              memory: "256Mi"

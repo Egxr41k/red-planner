@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  APPLICATION_PORT: "4200"
+  ALLOWED_ORIGIN: "http://red-planner.local"
+  SERVER_URL: "http://red-planner.local/api"
+  APP_URL: "http://red-planner.local"

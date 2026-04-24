@@ -1,0 +1,16 @@
+{
+  "name": "red-planner",
+  "private": true,
+  "workspaces": ["apps/*"],
+  "packageManager": "yarn@1.22.22",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "db:migrate": "turbo run migrate",
+    "db:generate": "turbo run generate"
+  },
+  "devDependencies": {
+    "turbo": "latest"
+  }
+}
