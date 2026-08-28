@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: red-planner
   name: backend-deployment
   labels:
     app: backend
 spec:
-  replicas: 3
   selector:
     matchLabels:
       app: backend
@@ -27,7 +27,7 @@ spec:
 
         # 2. Миграции Prisma (выполняются один раз перед стартом приложения)
         - name: db-migrate
-          image: localhost:5000/red-planner-frontend:latest
+          image: red-planner-backend:latest
           imagePullPolicy: IfNotPresent
           command: ["npx", "prisma", "migrate", "deploy"]
           env:
@@ -39,7 +39,7 @@ spec:
 
       containers:
         - name: backend
-          image: localhost:5000/red-planner-frontend:latest
+          image: red-planner-backend:latest
           imagePullPolicy: IfNotPresent
           # Используем APPLICATION_PORT из конфига, но контейнер должен его слушать
           ports:

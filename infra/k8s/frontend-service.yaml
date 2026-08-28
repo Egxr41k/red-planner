@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: red-planner
   name: frontend-service
 spec:
   type: NodePort # Делаем фронтенд доступным снаружи
