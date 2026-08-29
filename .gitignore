@@ -73,12 +73,14 @@ terraform.tflog
 *.ntvs*
 *.suo
 
-# VS Code - сохраняем только командные настройки
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+# Editor directories and files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
 
 # --- Logs ---
 logs/
